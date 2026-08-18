@@ -103,10 +103,10 @@ for epoch in range(num_epochs):
 ```
 
 **Each step:**
-1 Grab a mini-batch
-2 Forward pass → compute loss
-3 Backward pass → compute gradients
-4 Update parameters with SGD (gradients reset automatically)
-5 Repeat over all batches and epochs
+- 1 Grab a mini-batch
+- 2 Forward pass → compute loss
+- 3 Backward pass → compute gradients
+- 4 Update parameters with SGD (gradients reset automatically)
+- 5 Repeat over all batches and epochs
 
-After training, `w` and `b` should converge close to `true_w` and `true_b`.
+- After training, `w` and `b` should converge close to `true_w` and `true_b`.
