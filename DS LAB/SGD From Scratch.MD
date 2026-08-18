@@ -1,4 +1,4 @@
-# Linear Regression from Scratch
+# SGD From Scratch
 ### We will construct an artificial dataset according to a linear model with additive noise. 
 ### Our task will be to recover this model’s parameters using the finite set of examples contained in our dataset.
 
