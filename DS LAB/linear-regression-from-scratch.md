@@ -1,6 +1,8 @@
 # Linear Regression from Scratch
+## We will construct an artificial dataset according to a linear model with additive noise. 
+## Our task will be to recover this model’s parameters using the finite set of examples contained in our dataset.
 
-## 1. Generate Synthetic Data
+## 1 Generate Synthetic Data
 
 ```python
 def synthetic_data(w, b, num_examples):
@@ -19,7 +21,7 @@ features, labels = synthetic_data(true_w, true_b, 1000)
 
 ---
 
-## 2. Mini-batch Data Iterator
+## 2 Mini-batch Data Iterator
 
 ```python
 def data_iter(batch_size, features, labels):
@@ -35,7 +37,7 @@ def data_iter(batch_size, features, labels):
 
 ---
 
-## 3. Initialize Parameters
+## 3 Initialize Parameters
 
 ```python
 w = torch.normal(0, 0.01, size=(2, 1), requires_grad=True)
@@ -46,7 +48,7 @@ b = torch.zeros(1, requires_grad=True)
 
 ---
 
-## 4. Model (Linear)
+## 4 Linear Model
 
 ```python
 def linear(X, W, b):
@@ -56,7 +58,7 @@ def linear(X, W, b):
 
 ---
 
-## 5. Loss Function (Squared Loss)
+## 5 Loss Function (Squared Loss)
 
 ```python
 def squared_loss(y_hat, y):
@@ -67,7 +69,7 @@ def squared_loss(y_hat, y):
 
 ---
 
-## 6. Optimizer (Mini-batch SGD)
+## 6 Optimizer (Mini-batch SGD)
 
 ```python
 def sgd(params, lr, batch_size):
@@ -84,7 +86,7 @@ def sgd(params, lr, batch_size):
 
 ---
 
-## 7. Training Loop
+## 7 Training Loop
 
 ```python
 lr = 0.03
@@ -103,10 +105,10 @@ for epoch in range(num_epochs):
 ```
 
 **Each step:**
-1. Grab a mini-batch
-2. Forward pass → compute loss
-3. Backward pass → compute gradients
-4. Update parameters with SGD (gradients reset automatically)
-5. Repeat over all batches and epochs
+1 Grab a mini-batch
+2 Forward pass → compute loss
+3 Backward pass → compute gradients
+4 Update parameters with SGD (gradients reset automatically)
+5 Repeat over all batches and epochs
 
 After training, `w` and `b` should converge close to `true_w` and `true_b`.
