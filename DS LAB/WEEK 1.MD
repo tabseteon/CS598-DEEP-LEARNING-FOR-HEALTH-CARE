@@ -17,11 +17,13 @@
 #### Forward pass: compute from input x to output y, while PyTorch records every operation as a graph
 #### Backward pass: starting from y, walk backward toward x, applying the chain rule at each step to compute gradients automatically
 
-#### x = torch.arange(4.0)
-#### x.requires_grad_(True) # 	Declares that gradients should be tracked for this variable
-#### y = 2 * torch.dot(x, x)  # y = 2x^T x = 28
-#### y.backward() # Stores dy/dx in x.grad
-#### x.grad # Returns the stored gradient
+```python
+x = torch.arange(4.0)
+x.requires_grad_(True) # 	Declares that gradients should be tracked for this variable
+y = 2 * torch.dot(x, x)  # y = 2x^T x = 28
+y.backward() # Stores dy/dx in x.grad
+x.grad # Returns the stored gradient
+```
 
 #### PyTorch uses its own data type called torch.Tensor
 #### matplotlib (e.g. plt.plot) is designed to take numpy arrays or lists as input
