@@ -16,8 +16,7 @@ true_w = torch.tensor([2, -3.4])
 true_b = 4.2
 features, labels = synthetic_data(true_w, true_b, 1000)
 ```
-- Creates fake data with known ground-truth `w` and `b`, plus a bit of noise
-- Lets us check later whether the trained model recovers the true parameters
+- Creates synthetic data with known ground-truth `w` and `b`, plus noise
 
 ---
 
@@ -33,7 +32,6 @@ def data_iter(batch_size, features, labels):
         yield features[batch_indices], labels[batch_indices]
 ```
 - Shuffles indices, then yields data in mini-batches
-- A generator (`yield`) — returns one batch at a time, resuming state on each call
 
 ---
 
@@ -43,7 +41,7 @@ def data_iter(batch_size, features, labels):
 w = torch.normal(0, 0.01, size=(2, 1), requires_grad=True)
 b = torch.zeros(1, requires_grad=True)
 ```
-- `w` sampled from a small normal distribution, `b` set to 0
+- `w` sampled from normal distribution, `b` set to 0
 - `requires_grad=True` so gradients can be tracked for both
 
 ---
@@ -64,12 +62,10 @@ def linear(X, W, b):
 def squared_loss(y_hat, y):
     return ((y_hat - y.reshape(y_hat.shape)) ** 2 / 2).mean()
 ```
-- $\frac{1}{2}(\hat{y} - y)^2$, averaged over the batch
-- Reshape `y` to match `y_hat`'s shape to avoid unintended broadcasting
 
 ---
 
-## 6 Optimizer (Mini-batch SGD)
+## 6 Optimizer (Mini-batch Stochastic Gradient Descent)
 
 ```python
 def sgd(params, lr, batch_size):
@@ -84,6 +80,8 @@ def sgd(params, lr, batch_size):
 - `torch.no_grad()`: the update itself shouldn't be tracked by autograd
 - `.zero_()`: resets gradients after each update (PyTorch accumulates gradients by default)
 
+- Stochastic: estimates the gradient using a randomly sampled subset (a mini-batch) instead of the full dataset
+- Gradient Descent: moves parameters in the opposite direction of the gradient to gradually reduce the loss
 ---
 
 ## 7 Training Loop
