@@ -38,7 +38,7 @@
 
 ### 2.4 Save in SVMLight format
 #### Construct a feature vector and represent the feature vector in SVMLight format.
-'''
+'''python
 <line> .=. <target> <feature>:<value> <feature>:<value>
 <target> .=. 1 | 0
 <feature> .=. <integer>
