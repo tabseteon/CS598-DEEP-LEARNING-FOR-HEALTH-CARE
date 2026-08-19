@@ -32,10 +32,9 @@
 #### Remove the events that occur outside the observation window. That is, only keep events in visits before index vid. 
 
 ### 2.3 Aggregate events
-#### 1단계: event_id를 숫자(feature_id)로 바꾸기
-#### DIAG_244, LAB_50931 같은 이름 대신 event_feature_map.csv에 있는 숫자 번호(idx)를 붙여요.
-#### 2단계: 환자별로 이벤트 발생 횟수 세기
-#### 3단계: 0~1 사이로 정규화하기
+#### Step 1: Convert string event IDs (e.g., DIAG_244, LAB_50931) to numeric feature_id using event_feature_map.csv
+#### Step 2: Calculate event counts per patient.
+#### Step 3: Normalize event counts to [0, 1] range (Min-Max scaling).
 
 ### 2.4 Save in SVMLight format
 #### Construct a feature vector and represent the feature vector in SVMLight format.
