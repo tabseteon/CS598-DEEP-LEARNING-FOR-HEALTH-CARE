@@ -38,12 +38,12 @@
 
 ### 2.4 Save in SVMLight format
 #### Construct a feature vector and represent the feature vector in SVMLight format.
-'''python
-<line> .=. <target> <feature>:<value> <feature>:<value>
-<target> .=. 1 | 0
-<feature> .=. <integer>
-<value> .=. <float>
-'''
+
+### <line> .=. <target> <feature>:<value> <feature>:<value>
+### <target> .=. 1 | 0
+### <feature> .=. <integer>
+### <value> .=. <float>
+
 
 - The target value and each of the feature/value pairs are separated by a space character. 
 - Feature/value pairs MUST be ordered by increasing feature number. 
