@@ -19,7 +19,7 @@
 
 ```python
 x = torch.arange(4.0)
-x.requires_grad_(True) # 	Declares that gradients should be tracked for this variable
+x.requires_grad_(True) # Declares that gradients should be tracked for this variable
 y = 2 * torch.dot(x, x) # y = 2x^T x = 28
 y.backward() # Stores dy/dx in x.grad
 x.grad # Returns the stored gradient
