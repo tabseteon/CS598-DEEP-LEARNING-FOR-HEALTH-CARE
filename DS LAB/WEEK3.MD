@@ -1,3 +1,5 @@
+# Mortality Prediction With CNN
+
 #### Previously, we perform mortality prediction based on the last visit's diagnosis codes using DNN.
 #### This practice ignores massive information in the previous visits of a patient. Thus, Starting from this lab, we will play with sequential visit data.
 #### MLP is quite unsatisfying when dealing with such rich structure data. 
