@@ -37,9 +37,9 @@ class NaiveRNN(nn.Module):
     
     def forward(self, x, length):
         """
-        1. Pass the inputs through the RNN layer;
-        2. Obtain the hidden state at the last visit.
-        3. Pass the hidden state through the linear and activation layers.
+        1. Pass the inputs through the RNN layer
+        2. Obtain the hidden state at the last visit
+        3. Pass the hidden state through the linear and activation layers
         """        
 
         hidden_states, _ = self.rnn(x)
