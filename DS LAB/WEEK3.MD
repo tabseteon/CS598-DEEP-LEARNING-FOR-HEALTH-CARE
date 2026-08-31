@@ -41,10 +41,9 @@ for epoch in range(n_epochs):
     for x, y in train_loader:
         """ Step 1. clear gradients """
         optimizer.zero_grad()
-        """  Step 2. perform forward pass using `model`, save the output to y_hat """
+        """  Step 2. perform forward pass using `model` """
         y_hat = model(x)
-        """ Step 3. calculate the loss using `criterion`, save the output to loss. """
-        # convert shape from [batch size, 1] to [batch size]
+        """ Step 3. calculate the loss using `criterion` """
         y_hat = y_hat.view(y_hat.shape[0])
         loss = criterion(y_hat, y)
         """ Step 4. backward pass """
@@ -66,12 +65,12 @@ for epoch in range(n_epochs):
 | 단계 | 항목 | 설명 |
 |------|------|------|
 | 1 | **모델 빌드** | `Net` 클래스 정의 및 인스턴스화 (`model = Net()`) |
-| 2 | **Loss function 정의** | `criterion` 정의 (예: `nn.BCELoss()`) |
-| 3 | **Optimizer 정의** | `optimizer` 정의 (예: `torch.optim.SGD(model.parameters(), lr=0.01)`) |
+| 2 | **Loss function 정의** | `criterion` 정의 |
+| 3 | **Optimizer 정의** | `optimizer` 정의 |
 | 4 | **Training loop** | epoch 반복 |
 | 4-1 | Batch 반복 | 각 epoch 안에서 batch 단위 반복 |
 | 4-1-1 | Forward pass | 입력을 모델에 통과시켜 예측값 계산 |
 | 4-1-2 | Loss 계산 | 예측값과 정답을 비교하여 손실 계산 |
-| 4-1-3 | Backward pass | gradient 계산 (`loss.backward()`) |
-| 4-1-4 | Optimizer step | 파라미터 업데이트 (`optimizer.step()`) |
-| 5 | **Evaluation loop** (선택) | 학습 후 성능 확인 |
+| 4-1-3 | Backward pass | gradient 계산 |
+| 4-1-4 | Optimizer step | 파라미터 업데이트 |
+| 5 | **Evaluation loop** | 학습 후 성능 확인 |
