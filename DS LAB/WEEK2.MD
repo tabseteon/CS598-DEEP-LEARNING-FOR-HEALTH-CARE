@@ -1,9 +1,5 @@
-## DNN in PyTorch: We will perform mortality prediction based on the last visit's diagnosis codes using DNN.
-
-### Nonlinearity
-### DNN with Pytorch
-### Preprocessing
-### DNN Model
+# DNN in PyTorch
+## We will perform mortality prediction based on the last visit's diagnosis codes using DNN.
 
 ## 1 Nonlinearity
 ### 1.1 Linear Models May Go Wrong
