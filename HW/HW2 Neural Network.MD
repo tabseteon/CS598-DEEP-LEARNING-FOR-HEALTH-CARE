@@ -34,9 +34,7 @@ print(model)
 ```
 
 ### 4 Train the Network
-#### Neural networks with non-linear activations work like universal function approximators. Stacking only linear layers is still just linear function, no matter how many layers you add — a combination of linear functions is still linear.
-Adding non-linear activation functions lets the network capture complex, non-linear patterns.
-#### with a classification problem such as Heart Failure Prediction, we are using the Sigmoid function to predict heart failure probability.
+#### Neural networks with non-linear activations work like universal function approximators. Stacking only linear layers is still just linear function, no matter how many layers you add — a combination of linear functions is still linear. Adding non-linear activation functions lets the network capture complex, non-linear patterns.
 
 ```python
 # With a Sigmoid output, you use binary cross-entropy loss (BCELoss).
