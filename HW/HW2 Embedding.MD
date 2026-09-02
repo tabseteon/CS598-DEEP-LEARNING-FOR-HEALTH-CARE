@@ -10,9 +10,18 @@
 
 ### 1.2 Train a Word2Vec model
 #### We will be using Word2Vec
-from gensim
+#### Word2Vec converts words into vectors. Words that appear in similar contexts tend to have similar embeddings (distributional hypothesis).
 
-- Set the word vector size to 100.
-- Ignore all words with total frequency lower than (<) 20.
-- Use only 1 worker to ensure deterministic behavior
-- Train the model on the training dataset.
+## 2 Dimensionality Reduction
+### High-dimensional data can't be visualized directly, so we need to compress it down to 2D while trying to preserve the relationships between points.
+### 2.1 t-SNE (t-distributed Stochastic Neighbor Embedding)
+```python
+tsne = TSNE(n_components=2, random_state=RANDOM_SEED)
+Y_subset_tsne = tsne.fit_transform(X_subset)
+```
+
+### 2.2 UMAP (Uniform Manifold Approximation and Projection)
+```python
+reducer = umap.UMAP(n_components=2, random_state=RANDOM_SEED)
+Y_subset_umap = reducer.fit_transform(X_subset)
+```
