@@ -177,3 +177,56 @@ train(seq2seq, train_loader, val_loader, n_epochs)
 ```
 
 ## 5 Unsupervised patient clustering
+### 5-A Generate patient embeddings
+```python
+# Use trained encoder model to get patient embeddings
+def get_embeddings(model, data_loader):
+
+    seq2seq.eval()
+    embeddings = []
+    labels = []
+
+    for x, masks, y in data_loader:
+        # use only the Encoder to generate patient embeddings
+        cur_embd = seq2seq.encoder(x, masks) 
+        # collect embeddings and labels, batch by batch
+        embeddings += list(cur_embd.detach().numpy())
+        labels += list(y.numpy())
+        
+    return np.array(embeddings), np.array(labels)
+
+    
+embeddings, labels = get_embeddings(seq2seq, val_loader)
+```
+
+### 5-B Cluster these embeddings
+```python
+# 1 Use K-means to generate patient clusters. (K=2)
+# 2 Use calinski harabaz score to evaluate clustering results
+
+from sklearn.metrics import calinski_harabasz_score
+from sklearn.cluster import KMeans
+
+def get_clusters(embeddings):
+
+    kmeans = KMeans(n_clusters=2, random_state=42)
+    labels = kmeans.fit_predict(embeddings)
+    
+    score = calinski_harabasz_score(embeddings, labels)
+    
+    return labels
+    
+cluster_labels = get_clusters(embeddings)
+```
+
+### 5-C Visualize the embeddings and clustering results
+```python
+from sklearn import manifold
+import matplotlib.pyplot as plt
+
+tsne = manifold.TSNE(n_components=2, init='pca', random_state=42)
+tsne_embd = tsne.fit_transform(embeddings)
+
+plt.scatter(tsne_embd[:,0], tsne_embd[:,1], c=labels)
+plt.show()
+```
