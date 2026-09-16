@@ -78,9 +78,9 @@ class Decoder(nn.Module):
 ### 1 Encode: Pass the full visit sequence through the Encoder to obtain a summary vector (hidden).
 ### 2 Start decoding: Feed a zero vector as the initial input and hidden as the initial state into the Decoder to predict the first visit.
 ### 3 Loop
-###   - Use random.random() to decide whether to apply teacher forcing.
-###   - If teacher forcing, use the ground truth as the next input. Otherwise, use the model's previous prediction.
-###   - Feed the chosen input and the previous hidden state into the Decoder to get a new prediction and hidden state, and store the prediction.
+#### - Use random.random() to decide whether to apply teacher forcing.
+#### - If teacher forcing, use the ground truth as the next input. Otherwise, use the model's previous prediction.
+#### - Feed the chosen input and the previous hidden state into the Decoder to get a new prediction and hidden state, and store the prediction.
 ### 4 Collect results: Stack all predictions with torch.stack and reshape
 ```python
 class Seq2Seq(nn.Module):
@@ -117,3 +117,63 @@ class Seq2Seq(nn.Module):
         # step 4
         return torch.stack(preds).permute(1,0,2)
 ```
+## 4 Model Training and Evaluation
+## 4-A Loss and optimizer
+```python
+criterion = nn.BCELoss(reduction='none')
+optimizer = torch.optim.Adam(seq2seq.parameters(), lr=1e-2)
+```
+
+## 4-B Evaluation
+```python
+from sklearn.metrics import f1_score, accuracy_score
+
+def eval(model, val_loader):
+
+    model.eval()
+
+    x_pred = []
+    x_true = []
+    for x, masks, y in val_loader:
+        x_hat = model(x, masks).detach().numpy()
+        x_hat = np.round(x_hat)
+        for i in range(len(x_hat)):
+            for j in range(len(x_hat[i])):
+                if masks[i, j] == 1:
+                    x_pred.append(x_hat[i,j])
+                    x_true.append(x.numpy()[i,j])
+    
+    f = f1_score(y_pred=x_pred, y_true=x_true, average='micro')
+    acc = accuracy_score(y_pred=x_pred, y_true=x_true)
+    return f, acc
+```
+## 4-C Training and Evaluation
+
+```python
+def train(model, train_loader, val_loader, n_epochs):
+
+    for epoch in range(n_epochs):
+        seq2seq.train()
+        train_loss = 0
+        for x, masks, y in train_loader:
+            optimizer.zero_grad()
+            x_hat = seq2seq(x, masks)
+            loss = criterion(x_hat, x)
+            loss = loss * masks.float().unsqueeze(-1)
+            loss = torch.mean(torch.sum(loss, dim=[1,2]))
+            loss.backward()
+            optimizer.step()
+            train_loss += loss.item()
+        train_loss = train_loss / len(train_loader)
+        print('Epoch: {} \t Training Loss: {:.6f}'.format(epoch+1, train_loss))
+        f, acc = eval(model, val_loader)
+        print('Epoch: %d \t Validation f: %.2f, acc: %.2f'%(epoch+1, f, acc))
+
+    
+# number of epochs to train the model
+n_epochs = 100
+
+train(seq2seq, train_loader, val_loader, n_epochs)
+```
+
+## 5 Unsupervised patient clustering
