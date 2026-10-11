@@ -1,5 +1,7 @@
-# RETAIN
-### Heart failure predictioin RETAIN: a RNN model with attention mechanism
+# RETAIN: Interpretable Heart Failure Prediction from Diagnosis Codes
+### PyTorch implementation of RETAIN (Choi et al., 2016), a recurrent model with two-level reverse-time attention, applied to heart failure (HF) prediction
+### RETAIN predicts whether the patient has heart failure, and its attention weights show which visits and which features drove the prediction.
+### Paper: RETAIN: An Interpretable Predictive Model for Healthcare using Reverse Time Attention Mechanism
 
 ## 1 Build the dataset 
 ### 1-A Collate Function
